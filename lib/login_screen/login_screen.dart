@@ -1,13 +1,9 @@
-import 'package:elscus/core/constants/color_constant.dart';
-import 'package:elscus/core/constants/image_constant.dart';
-import 'package:elscus/process/state/authen_state.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
-import '../../fire_base/provider/google_sign_in_provider.dart';
-import '../../process/bloc/authen_bloc.dart';
-import '../../process/event/authen_event.dart';
+
+import 'package:flutter/material.dart';
+
+import '../utils/constants/color_constant.dart';
+import '../utils/constants/image_constant.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,16 +14,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _showPass = false;
-  final _authenBloc = AuthenBloc();
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     var size = MediaQuery.of(context).size;
     final ThemeData theme = ThemeData();
-    return StreamBuilder<AuthenState>(
-        stream: _authenBloc.stateController.stream,
-        builder: (context, snapshot) {
           return Container(
             width: size.width,
             height: size.height,
@@ -48,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: size.height * 0.15, width: size.width * 0.3),
                 Text(
                   'Elderly Sitter',
-                  style: GoogleFonts.roboto(
+                  style: TextStyle(
                     fontSize: size.height * 0.042,
                     fontWeight: FontWeight.bold,
                   ),
@@ -71,19 +63,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       cursorColor: ColorConstant.primaryColor,
                       controller: null,
                       onChanged: (value) {
-                        _authenBloc.eventController.sink
-                            .add(InputUsernameEvent(
-                            username: value.toString().trim()));
                       },
                       decoration: InputDecoration(
                         hintText: "Phone",
-                        errorText: (snapshot.hasError &&
-                            (snapshot.error
-                            as Map<String, String>)
-                                .containsKey("phonenumber"))
-                            ? (snapshot.error as Map<String, String>)[
-                        "phonenumber"]
-                            : null,
+                        errorText: null,
                         prefixIcon: SizedBox(
                           width: size.width * 0.05,
                           child: Icon(
@@ -123,20 +106,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           obscureText: !_showPass,
                           onChanged: (value) {
-                            _authenBloc.eventController.sink
-                                .add(InputPasswordEvent(
-                                password: value.toString().trim()));
                           },
                           cursorColor: ColorConstant.primaryColor,
                           controller: null,
                           decoration: InputDecoration(
-                            errorText: (snapshot.hasError &&
-                                (snapshot.error
-                                as Map<String, String>)
-                                    .containsKey("password"))
-                                ? (snapshot.error as Map<String, String>)[
-                            "password"]
-                                : null,
+                            errorText: null,
                             hintText: "Mật Khẩu",
                             prefixIcon: SizedBox(
                               width: size.width * 0.05,
@@ -191,11 +165,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/forgotPasswordScreen');
                         },
                         child: Text(
                           'Quên mật khẩu? ',
-                          style: GoogleFonts.roboto(
+                          style: TextStyle(
                             fontSize: size.height * 0.018,
                             fontWeight: FontWeight.w500,
                           ),
@@ -215,7 +188,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: size.height * 0.055,
                     child: ElevatedButton(
                       onPressed: () {
-                        _authenBloc.eventController.sink.add(LoginEvent(context));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ColorConstant.primaryColor,
@@ -242,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 1,
                         width: size.width * 0.3,
                         decoration: BoxDecoration(
-                          color: ColorConstant.grey500,
+                          color: Colors.grey.withOpacity(0.5),
                         ),
                       ),
                       Padding(
@@ -253,7 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                            color: ColorConstant.grey600,
+                            color: Colors.grey.withOpacity(0.5),
                             fontSize: size.height * 0.018,
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w400,
@@ -264,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 1,
                         width: size.width * 0.3,
                         decoration: BoxDecoration(
-                          color: ColorConstant.grey500,
+                          color: Colors.grey.withOpacity(0.5),
                         ),
                       ),
                     ],
@@ -309,10 +281,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       onPressed: () {
                         setState(() {
-                          final provider = Provider.of<GoogleSignInProvider>(
-                              context,
-                              listen: false);
-                          provider.googleLogin();
                         });
                       },
                     ),
@@ -331,18 +299,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Text(
                             'Chưa có tài khoản? ',
-                            style: GoogleFonts.roboto(
+                            style: TextStyle(
                               fontSize: size.height * 0.017,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, '/signUpScreen');
                             },
                             child: Text(
                               'Đăng ký',
-                              style: GoogleFonts.roboto(
+                              style: TextStyle(
                                 fontSize: size.height * 0.018,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -358,7 +325,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.bottomCenter,
                     child: Text(
                       'Ứng dụng cho Khách hàng',
-                      style: GoogleFonts.roboto(
+                      style: TextStyle(
                         color: Colors.black.withOpacity(0.6),
                         fontSize: size.height * 0.017,
                         fontWeight: FontWeight.w400,
@@ -369,7 +336,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           );
-        });
+        
   }
 
   void onToggleShowPass() {
