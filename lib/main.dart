@@ -1,6 +1,9 @@
 import 'package:capstone/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'home_screen/home_screen.dart';
+import 'login_screen/register_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -20,6 +23,8 @@ class _MyAppState extends State<MyApp> {
       initialRoute: "/",
       routes: <String, WidgetBuilder>{
         '/': (context) => const LoginScreen(),
+        '/signUpScreen': (context) => const SignupScreen(),
+        '/homeScreen': (context) => const HomeScreen(),
       },
     );
   }
