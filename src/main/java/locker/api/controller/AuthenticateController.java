@@ -9,10 +9,7 @@ import locker.api.repositories.UserRepository;
 import locker.api.services.impl.AuthenticateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.PermitAll;
 
@@ -29,11 +26,35 @@ public class AuthenticateController {
         return ResponseEntity.ok().body(responseDTO);
     }
 
+    @PostMapping("login-by-gmail")
+    @PermitAll
+    public ResponseEntity<ResponseDTO> loginGmail(@RequestBody LoginRequest loginRequest){
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setData(authenticateService.login(loginRequest));
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
     @PostMapping("register")
     @PermitAll
     public ResponseEntity<ResponseDTO> register(@RequestBody RegisterRequest registerRequest){
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setData(authenticateService.register(registerRequest));
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
+    @PostMapping("send-otp/{email}")
+    @PermitAll
+    public ResponseEntity<ResponseDTO> sendEmail(@PathVariable String email){
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setData(authenticateService.sendOTP(email));
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
+    @PatchMapping("send-otp/{otp}")
+    @PermitAll
+    public ResponseEntity<ResponseDTO> verify(@PathVariable String otp){
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setData(authenticateService.verified(otp));
         return ResponseEntity.ok().body(responseDTO);
     }
 }
