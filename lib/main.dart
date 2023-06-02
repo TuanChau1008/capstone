@@ -1,3 +1,6 @@
+import 'package:capstone/home_screen/task_history.dart';
+import 'package:capstone/information_screen/change_password.dart';
+import 'package:capstone/information_screen/edit_info.dart';
 import 'package:capstone/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,9 +25,12 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       initialRoute: "/",
       routes: <String, WidgetBuilder>{
-        '/': (context) => const LoginScreen(),
+        '/': (context) => const Change_Password(),
         '/signUpScreen': (context) => const SignupScreen(),
-        '/homeScreen': (context) => const HomeScreen(),
+        '/homeScreen': (context) => const HomePage(),
+        // '/taskHistory': (context) => const History(),
+        '/editProfile': (context) => const Edit_info(),
+        '/changePassword': (context) => const Change_Password(),
       },
     );
   }
