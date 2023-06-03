@@ -25,7 +25,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       initialRoute: "/",
       routes: <String, WidgetBuilder>{
-        '/': (context) => const Change_Password(),
+        // '/': (context) => const Change_Password(),
+        '/': (context) => const LoginScreen(),
         '/signUpScreen': (context) => const SignupScreen(),
         '/homeScreen': (context) => const HomePage(),
         // '/taskHistory': (context) => const History(),
