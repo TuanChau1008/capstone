@@ -2,8 +2,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class ColorConstant {
-  static Color primaryColor = fromHex('21a5ff');
+
+  static Color primaryColor = fromHex('582FFF');
+
   static Color redErrorText = fromHex('FF0000');
+
 
   static Color fromHex(String hexString) {
     final buffer = StringBuffer();

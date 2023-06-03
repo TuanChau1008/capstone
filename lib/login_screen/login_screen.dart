@@ -1,3 +1,6 @@
+
+import 'package:capstone/bottom_bar_navigator/bottom_bar_navigator.dart';
+
 import 'package:flutter/material.dart';
 import '../utils/constants/color_constant.dart';
 import '../utils/constants/image_constant.dart';
@@ -17,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // TODO: implement build
     var size = MediaQuery.of(context).size;
     final ThemeData theme = ThemeData();
+
     return Material(
       child: Container(
         width: size.width,
@@ -126,12 +130,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderSide: BorderSide(
                             width: 1,
                             color: ColorConstant.primaryColor,
+
                           ),
                         ),
                       ),
                     ),
                   ),
                   Padding(
+
                     padding: EdgeInsets.only(right: size.height * 0.02),
                     child: GestureDetector(
                       onTap: () {
@@ -184,9 +190,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: double.infinity,
                 height: size.height * 0.055,
                 child: ElevatedButton(
+                  //onPressed: () {
+                  //  Navigator.pushNamed(context, '/homeScreen');
+                  //},
                   onPressed: () {
-                    Navigator.pushNamed(context, '/homeScreen');
-                  },
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => BottomBarNavigator(selectedIndex: 0, isBottomNav: true),));
+                        },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ColorConstant.primaryColor,
                     textStyle: TextStyle(
@@ -329,6 +338,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+
               ),
             ),
           ],
