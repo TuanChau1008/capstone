@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import '../widget/dialog/finding_dialog.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 

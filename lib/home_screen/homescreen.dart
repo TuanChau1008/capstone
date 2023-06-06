@@ -1,10 +1,19 @@
 import 'package:capstone/utils/constants/color_constant.dart';
 import 'package:capstone/utils/constants/image_constant.dart';
+import 'package:capstone/widget/dialog/have_locker_dialog.dart';
+import 'package:capstone/widget/dialog/not_have_locker_dialog.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../widget/dialog/finding_dialog.dart';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -43,7 +52,9 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: size.height*0.05,),
+                SizedBox(
+                  height: size.height * 0.05,
+                ),
                 Container(
                   padding: EdgeInsets.all(size.height * 0.02),
                   decoration: BoxDecoration(
@@ -60,7 +71,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-
                       Container(
                         width: size.width * 0.5,
                         height: size.width * 0.4,
@@ -82,7 +92,9 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: size.height*0.1,),
+                SizedBox(
+                  height: size.height * 0.1,
+                ),
                 Container(
                   padding: EdgeInsets.all(size.height * 0.02),
                   decoration: BoxDecoration(
@@ -99,7 +111,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-
                       Container(
                         width: size.width * 0.5,
                         height: size.width * 0.4,

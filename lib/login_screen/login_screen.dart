@@ -1,5 +1,6 @@
 
 import 'package:capstone/bottom_bar_navigator/bottom_bar_navigator.dart';
+import 'package:capstone/widget/dialog/finding_dialog.dart';
 
 import 'package:flutter/material.dart';
 import '../utils/constants/color_constant.dart';
@@ -14,7 +15,11 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _showPass = false;
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
