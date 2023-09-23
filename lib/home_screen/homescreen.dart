@@ -1,4 +1,4 @@
-import 'package:capstone/utils/constants/color_constant.dart';
+import  'package:capstone/utils/constants/color_constant.dart';
 import 'package:capstone/utils/constants/image_constant.dart';
 import 'package:flutter/material.dart';
 
@@ -10,16 +10,9 @@ class HomeScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: ColorConstant.primaryColor,
         automaticallyImplyLeading: false,
-        title: Text(
-          "Home",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: size.height * 0.03,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: Text("Trang Chủ"),
         actions: [
           GestureDetector(
             onTap: () {},
@@ -72,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Tạo booking",
+                        "Tạo hòm thư",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -111,7 +104,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Xem lịch sử",
+                        "Xem hòm thư",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,

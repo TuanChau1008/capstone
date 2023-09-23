@@ -9,4 +9,6 @@ class ImageConstant {
   static String icAdd = 'assets/images/ic_add.png';
   static String imgCreateBooking = 'assets/images/img_create_booking.png';
   static String imgViewHistory = 'assets/images/img_view_history.png';
+  static String imgQRScanner = 'assets/images/qr-code-scan.png';
+  static String icNotification = 'assets/images/ic_notification.png';
 }

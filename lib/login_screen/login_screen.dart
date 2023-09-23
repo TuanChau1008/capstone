@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Image.asset(ImageConstant.appIcon,
                 height: size.height * 0.15, width: size.width * 0.3),
             Text(
-              'Smart Locker',
+              'Smart MailBox',
               style: TextStyle(
                 fontSize: size.height * 0.042,
                 fontWeight: FontWeight.bold,
@@ -159,27 +159,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                right: size.width * 0.07,
-              ),
-              child: SizedBox(
-                width: double.infinity,
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Text(
-                      'Quên mật khẩu? ',
-                      style: TextStyle(
-                        fontSize: size.height * 0.018,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.only(
+            //     right: size.width * 0.07,
+            //   ),
+            //   child: SizedBox(
+            //     width: double.infinity,
+            //     child: Align(
+            //       alignment: Alignment.centerRight,
+            //       child: GestureDetector(
+            //         onTap: () {},
+            //         child: Text(
+            //           'Quên mật khẩu? ',
+            //           style: TextStyle(
+            //             fontSize: size.height * 0.018,
+            //             fontWeight: FontWeight.w500,
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Padding(
               padding: EdgeInsets.only(
                 left: size.width * 0.07,
@@ -206,92 +206,92 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: size.width * 0.07,
-                top: size.height * 0.05,
-                right: size.width * 0.07,
-                bottom: size.height * 0.02,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 1,
-                    width: size.width * 0.3,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.5),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: size.width * 0.05, right: size.width * 0.05),
-                    child: Text(
-                      "Hoặc ",
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Colors.grey.withOpacity(0.5),
-                        fontSize: size.height * 0.018,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 1,
-                    width: size.width * 0.3,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.5),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: size.height * 0.03,
-                left: size.width * 0.07,
-                right: size.width * 0.07,
-              ),
-              child: Container(
-                width: size.width,
-                height: size.height * 0.06,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    textStyle: TextStyle(
-                      fontSize: size.width * 0.045,
-                    ),
-                    elevation: 5,
-                    shadowColor: Colors.grey,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(ImageConstant.imgGoogle,
-                          width: size.height * 0.04),
-                      Text(
-                        '    Đăng nhập với Google',
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: size.height * 0.02,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                  onPressed: () {
-                    setState(() {});
-                  },
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.only(
+            //     left: size.width * 0.07,
+            //     top: size.height * 0.05,
+            //     right: size.width * 0.07,
+            //     bottom: size.height * 0.02,
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       Container(
+            //         height: 1,
+            //         width: size.width * 0.3,
+            //         decoration: BoxDecoration(
+            //           color: Colors.grey.withOpacity(0.5),
+            //         ),
+            //       ),
+            //       Padding(
+            //         padding: EdgeInsets.only(
+            //             left: size.width * 0.05, right: size.width * 0.05),
+            //         child: Text(
+            //           "Hoặc ",
+            //           overflow: TextOverflow.ellipsis,
+            //           textAlign: TextAlign.left,
+            //           style: TextStyle(
+            //             color: Colors.grey.withOpacity(0.5),
+            //             fontSize: size.height * 0.018,
+            //             fontFamily: 'Roboto',
+            //             fontWeight: FontWeight.w400,
+            //           ),
+            //         ),
+            //       ),
+            //       Container(
+            //         height: 1,
+            //         width: size.width * 0.3,
+            //         decoration: BoxDecoration(
+            //           color: Colors.grey.withOpacity(0.5),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // Padding(
+            //   padding: EdgeInsets.only(
+            //     top: size.height * 0.03,
+            //     left: size.width * 0.07,
+            //     right: size.width * 0.07,
+            //   ),
+            //   child: Container(
+            //     width: size.width,
+            //     height: size.height * 0.06,
+            //     decoration: BoxDecoration(
+            //       color: Colors.white,
+            //       borderRadius: BorderRadius.circular(5),
+            //     ),
+            //     child: ElevatedButton(
+            //       style: ElevatedButton.styleFrom(
+            //         backgroundColor: Colors.white,
+            //         textStyle: TextStyle(
+            //           fontSize: size.width * 0.045,
+            //         ),
+            //         elevation: 5,
+            //         shadowColor: Colors.grey,
+            //       ),
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.center,
+            //         children: [
+            //           Image.asset(ImageConstant.imgGoogle,
+            //               width: size.height * 0.04),
+            //           Text(
+            //             '    Đăng nhập với Google',
+            //             style: TextStyle(
+            //               color: Colors.black87,
+            //               fontSize: size.height * 0.02,
+            //               fontWeight: FontWeight.w400,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //       onPressed: () {
+            //         setState(() {});
+            //       },
+            //     ),
+            //   ),
+            // ),
             Padding(
               padding: EdgeInsets.only(
                 top: size.height * 0.05,

@@ -310,38 +310,6 @@ class _SignupScreenState extends State<SignupScreen> {
                         padding: EdgeInsets.only(
                           top: size.height * 0.02,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                              checkColor: Colors.white,
-                              fillColor: MaterialStateProperty.resolveWith(
-                                      (states) => ColorConstant.primaryColor),
-                              focusColor: ColorConstant.primaryColor,
-                              value: _isCommit,
-                              onChanged: (bool? value) {
-                                setState(() {});
-                              },
-                            ),
-                            SizedBox(
-                              width: size.width * 0.03,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                              },
-                              child: Text(
-                                "Điều khoản & Cam kết",
-                                style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  fontSize: size.height * 0.02,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                     ),
                     // (snapshot.hasError &&

@@ -1,5 +1,9 @@
 
 import 'package:capstone/home_screen/homescreen.dart';
+import 'package:capstone/home_screen/task_history.dart';
+import 'package:capstone/notification_screen/notification_screen.dart';
+import 'package:capstone/information_screen/profile.dart';
+import 'package:capstone/qr_scanner/qr_scanner.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -31,11 +35,13 @@ class _BottomBarNavigatorState extends State<BottomBarNavigator> {
       case 0:
         return const HomeScreen();
       case 1:
-        return const SizedBox();
+        return const History();
       case 2:
-        return const SizedBox();
+        return const QRscanner();
       case 3:
-        return const SizedBox();
+        return const Notificaiton();
+      case 4:
+        return const Info();
 
 
       default:
@@ -62,25 +68,31 @@ class _BottomBarNavigatorState extends State<BottomBarNavigator> {
             icon: ImageIcon(
               AssetImage(ImageConstant.icHome),
             ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage(ImageConstant.icSearch),
-            ),
-            label: 'Search',
+            label: 'Trang chủ',
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
               AssetImage(ImageConstant.icHistory),
             ),
-            label: 'History',
+            label: 'Lịch sử',
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage(ImageConstant.imgQRScanner),
+            ),
+            label: 'Quét QR',
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage(ImageConstant.icNotification),
+            ),
+            label: 'Thông báo',
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
               AssetImage(ImageConstant.icProfile),
             ),
-            label: 'Profile',
+            label: 'Thông tin',
           ),
         ],
         currentIndex: selectedIndex,
