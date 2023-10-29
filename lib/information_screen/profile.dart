@@ -1,3 +1,5 @@
+import 'package:capstone/dialogs/logout_dialog.dart';
+import 'package:capstone/login_screen/login_screen.dart';
 import 'package:capstone/utils/constants/color_constant.dart';
 import 'package:capstone/utils/constants/image_constant.dart';
 import 'package:flutter/material.dart';
@@ -117,6 +119,12 @@ class _InfoState extends State<Info> {
               textColor: Colors.red,
               enIcon: false,
               onPress: () async {
+                final shouldLogout = await showLogoutDialog(context);
+                if(shouldLogout) {
+                  Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                }
+
               },
             ),
           ],

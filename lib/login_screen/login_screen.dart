@@ -39,14 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: size.height * 0.1,
             ),
             Image.asset(ImageConstant.appIcon,
-                height: size.height * 0.15, width: size.width * 0.3),
-            Text(
-              'Smart MailBox',
-              style: TextStyle(
-                fontSize: size.height * 0.042,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+                height: size.height * 0.2, width: size.width * 0.7),
             Padding(
               padding: EdgeInsets.only(
                 top: size.height * 0.05,
@@ -65,15 +58,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   cursorColor: ColorConstant.primaryColor,
                   controller: null,
                   onChanged: (value) {},
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    hintText: "Phone",
+                    hintText: "Email",
                     errorText: null,
 
                     prefixIcon: SizedBox(
                       width: size.width * 0.05,
                       child: Icon(
-                        Icons.phone,
+                        Icons.email_outlined,
                         size: size.width * 0.05,
                       ),
                     ),

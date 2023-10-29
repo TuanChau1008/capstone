@@ -89,46 +89,46 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                     ),
-                    // Padding(
-                    //   padding: EdgeInsets.only(
-                    //     top: size.height * 0.02,
-                    //   ),
-                    //   child: Theme(
-                    //     data: theme.copyWith(
-                    //       colorScheme: theme.colorScheme
-                    //           .copyWith(primary: ColorConstant.primaryColor),
-                    //     ),
-                    //     child: TextField(
-                    //       onChanged: (value) {
-                    //       },
-                    //       style: TextStyle(
-                    //           fontSize: size.width * 0.04, color: Colors.black),
-                    //       cursorColor: ColorConstant.primaryColor,
-                    //       controller: null,
-                    //       decoration: InputDecoration(
-                    //         hintText: "Email",
-                    //         prefixIcon: SizedBox(
-                    //           width: size.width * 0.05,
-                    //           child: Icon(
-                    //             Icons.mail,
-                    //             size: size.width * 0.05,
-                    //           ),
-                    //         ),
-                    //         border: const OutlineInputBorder(
-                    //             borderSide: BorderSide(
-                    //                 color: Color(0xffCED0D2), width: 1),
-                    //             borderRadius:
-                    //             BorderRadius.all(Radius.circular(6))),
-                    //         focusedBorder: OutlineInputBorder(
-                    //           borderSide: BorderSide(
-                    //             width: 1,
-                    //             color: ColorConstant.primaryColor,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: size.height * 0.02,
+                      ),
+                      child: Theme(
+                        data: theme.copyWith(
+                          colorScheme: theme.colorScheme
+                              .copyWith(primary: ColorConstant.primaryColor),
+                        ),
+                        child: TextField(
+                          onChanged: (value) {
+                          },
+                          style: TextStyle(
+                              fontSize: size.width * 0.04, color: Colors.black),
+                          cursorColor: ColorConstant.primaryColor,
+                          controller: null,
+                          decoration: InputDecoration(
+                            hintText: "Email",
+                            prefixIcon: SizedBox(
+                              width: size.width * 0.05,
+                              child: Icon(
+                                Icons.mail_outlined,
+                                size: size.width * 0.05,
+                              ),
+                            ),
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color(0xffCED0D2), width: 1),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(6))),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 1,
+                                color: ColorConstant.primaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     Padding(
                       padding: EdgeInsets.only(
                         top: size.height * 0.02,

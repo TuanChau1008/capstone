@@ -1,11 +1,12 @@
+import 'package:capstone/history_screen/task_history.dart';
 import 'package:capstone/home_screen/homescreen.dart';
-import 'package:capstone/home_screen/task_history.dart';
 import 'package:capstone/information_screen/change_password.dart';
 import 'package:capstone/information_screen/edit_info.dart';
 import 'package:capstone/login_screen/login_screen.dart';
 import 'package:capstone/notification_screen/notification_screen.dart';
 import 'package:capstone/information_screen/profile.dart';
 import 'package:capstone/qr_scanner/qr_scanner.dart';
+import 'package:capstone/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'login_screen/register_screen.dart';
@@ -30,7 +31,8 @@ class _MyAppState extends State<MyApp> {
       initialRoute: "/",
       routes: <String, WidgetBuilder>{
         // '/': (context) => const Change_Password(),
-        '/': (context) => const LoginScreen(),
+        '/': (context) =>  const SplashScreen(),
+        '/loginSceen': (context) => const LoginScreen(),
         '/signUpScreen': (context) => const SignupScreen(),
         '/homeScreen': (context) => const HomeScreen(),
         '/taskHistory': (context) => const History(),

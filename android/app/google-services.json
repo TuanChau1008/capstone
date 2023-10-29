@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "259673472223",
+    "firebase_url": "https://capstone-mini-c7450-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "capstone-mini-c7450",
+    "storage_bucket": "capstone-mini-c7450.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259673472223:android:f66db441ee72eedc9abd6a",
+        "android_client_info": {
+          "package_name": "com.example.capstone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259673472223-opuoa36pap0or6l3540kggstqutfptkf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.capstone",
+            "certificate_hash": "d0c336a000b3f91e4a3c04aa2bbba3ab8112ca3b"
+          }
+        },
+        {
+          "client_id": "259673472223-gs1re1f2db5j3kht0funv21e3oga4f8e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrA_jeC0b5mWvVevui1RECwb1CFSWCuWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259673472223-gs1re1f2db5j3kht0funv21e3oga4f8e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
