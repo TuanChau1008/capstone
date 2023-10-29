@@ -7,6 +7,7 @@ import 'package:capstone/notification_screen/notification_screen.dart';
 import 'package:capstone/information_screen/profile.dart';
 import 'package:capstone/qr_scanner/qr_scanner.dart';
 import 'package:capstone/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'login_screen/register_screen.dart';
