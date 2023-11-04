@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import  'package:capstone/utils/constants/color_constant.dart';
 import 'package:capstone/utils/constants/image_constant.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -18,7 +20,6 @@ class HomeScreen extends StatefulWidget {
 }
 class _HomeScreen extends State<HomeScreen> {
   DatabaseReference firebase = FirebaseDatabase.instance.ref("/");
-  DatabaseReference bookingOrder = FirebaseDatabase.instance.ref("/BookingOrder");
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -70,8 +71,34 @@ class _HomeScreen extends State<HomeScreen> {
                 child: InkWell(
 
                   onTap: () {
+                    DatabaseReference bookingOrder = FirebaseDatabase.instance.ref().child('BookingCode').child('-Nh16BxBtkcOUl6_uoHG');
+                    DateTime now = DateTime.now().add(const Duration(minutes: 10));
+                    String time = now.toString().substring(0,16);
+                    var rng = new Random();
+                    var code = rng.nextInt(900000) + 100000;
+                    String bcode = code.toString();
+                    Map<String, String> booking =
+                    {
+                      "bcode": bcode,
+                      "bookingId": "-Nh16BmWda5wbyrO3MQG",
+                      "id": "-Nh16BxBtkcOUl6_uoHG",
+                      "status": "1",
+                      "validDate": time
+                    };
+                    // {
+                    //   "boxId": "-Nf5IIoTMOQ1XuN8qf_7",
+                    //   "businessId": "-Nf5H_45gvDvWJlfVSHi",
+                    //   "createDate": "2023-10-18 16:27",
+                    //   "deviceId": "87bb999684cccb39",
+                    //   "id": "-Nh16BmWda5wbyrO3MQG",
+                    //   "status": "1",
+                    //   "unlockCode": bcode,
+                    //   "validDate": time
+                    // };
+                    //bookingOrder.push().set(booking);
+                    bookingOrder.update(booking);
                      if (context.mounted) {
-                      createNewBookingCode(context, "1", "Nf5Hul8WlIoPX4H0xNB", "12356");
+                      createNewBookingCode(context, "1", "Nh16BmWda5wbyrO3MQG", bcode);
                      }
                   },
                   child: Column(
@@ -164,32 +191,18 @@ class _HomeScreen extends State<HomeScreen> {
       String bookingId,
       String oldCode,
       ) async {
-      if (bookingOrder.child("status").toString() == "1") {
         closeLoadingDialog();
         if (context.mounted) {
           await showGenericDialog(
             context: context,
             title: "Tạo mã booking",
             content:
-            "Mã booking mới là: ${bookingOrder.child("unlockCode")}. Chú ý: mã có hiệu lực 10 phút",
+            "Mã booking mới là: $oldCode. Chú ý: mã có hiệu lực 10 phút",
             optionBuilder: () => {
               "OK": true,
             },
           );
         }
-      } else {
-        closeLoadingDialog();
-        if (context.mounted) {
-          await showGenericDialog(
-            context: context,
-            title: "Tạo mã booking",
-            content: "Test",
-            optionBuilder: () => {
-              "OK": true,
-            },
-          );
-        }
-      }
     }
   }
 
