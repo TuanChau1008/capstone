@@ -71,7 +71,9 @@ class _HomeScreen extends State<HomeScreen> {
                 child: InkWell(
 
                   onTap: () {
-                    DatabaseReference bookingOrder = FirebaseDatabase.instance.ref().child('BookingCode').child('-Nh16BxBtkcOUl6_uoHG');
+                    String BookingCodeId = generateRandomCode(18);
+                    String id = BookingCodeId;
+                    DatabaseReference bookingOrder = FirebaseDatabase.instance.ref().child('BookingCode').child('-N'+id);
                     DateTime now = DateTime.now().add(const Duration(minutes: 10));
                     String time = now.toString().substring(0,16);
                     var rng = new Random();
@@ -80,22 +82,11 @@ class _HomeScreen extends State<HomeScreen> {
                     Map<String, String> booking =
                     {
                       "bcode": bcode,
-                      "bookingId": "-Nh16BmWda5wbyrO3MQG",
+                      "bookingId": "-N$id",
                       "id": "-Nh16BxBtkcOUl6_uoHG",
                       "status": "1",
                       "validDate": time
                     };
-                    // {
-                    //   "boxId": "-Nf5IIoTMOQ1XuN8qf_7",
-                    //   "businessId": "-Nf5H_45gvDvWJlfVSHi",
-                    //   "createDate": "2023-10-18 16:27",
-                    //   "deviceId": "87bb999684cccb39",
-                    //   "id": "-Nh16BmWda5wbyrO3MQG",
-                    //   "status": "1",
-                    //   "unlockCode": bcode,
-                    //   "validDate": time
-                    // };
-                    //bookingOrder.push().set(booking);
                     bookingOrder.update(booking);
                      if (context.mounted) {
                       createNewBookingCode(context, "1", "Nh16BmWda5wbyrO3MQG", bcode);
@@ -184,7 +175,11 @@ class _HomeScreen extends State<HomeScreen> {
       ),
     );
   }
-
+  String generateRandomCode(int len) {
+    var r = Random();
+    const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    return List.generate(len, (index) => _chars[r.nextInt(_chars.length)]).join();
+  }
   Future<void> createNewBookingCode(
       BuildContext mainContext,
       String status,
