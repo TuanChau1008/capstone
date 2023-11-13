@@ -14,7 +14,6 @@ class History extends StatefulWidget {
 
 class _HistoryState extends State<History> {
   final DatabaseReference _database = FirebaseDatabase.instance.ref();
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -47,11 +46,18 @@ class _HistoryState extends State<History> {
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
                             //String boxId = snapshot.data![index]['BoxId'];
-                            String cabinetName =
+                            String bookingCode =
+                            snapshot.data![index]["UnlockCode"].toString();
+                            String masterCode =
+                            snapshot.data![index]["MasterCode"].toString();
+
+                            String boxName =
                             snapshot.data![index]["BoxName"].toString();
                             // String boxName = snapshot.data![index]['BoxName'];
                             String validDate =
                             snapshot.data![index]['EndDate'];
+                            String createDate =
+                            snapshot.data![index]['CreateDate'];
                             String status = "";
                             if (snapshot.data![index]['Status'].toString() == '4') {
                               status = "Hoàn thành";
@@ -69,11 +75,12 @@ class _HistoryState extends State<History> {
                                     ),
                                   ),
                                   title: Text(
-                                      'Cabinet: $cabinetName'
+                                      'Tên tủ: $boxName'
                                     // 'Số tủ: $boxName',
                                   ),
                                   subtitle: Text(
                                     'Trạng thái: $status\n'
+                                        'Ngày tạo: $createDate\n'
                                         'Thời hạn: $validDate',
                                   ),
                                   trailing: TextButton(
@@ -84,16 +91,12 @@ class _HistoryState extends State<History> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                               HistoryDetail(
-                                                // bookingId: "bookingId",
-                                                // boxId: boxId,
-                                                // cabinetName: cabinetName,
-                                                // boxName: boxName,
-                                                // status: status,
-                                                // validDate: validDate,
-                                                //  onCancel: () {
-                                                //  setState(() {});
-                                                // },
-                                                ),
+                                                  bookingCode: bookingCode,
+                                                  masterCode: masterCode,
+                                                  boxName: boxName,
+                                                  status: status,
+                                                  validDate: validDate,
+                                                  createDate: createDate)
                                           ),
                                         );
                                       }
@@ -117,46 +120,6 @@ class _HistoryState extends State<History> {
           },
         ),
       ),
-      // SingleChildScrollView(
-      //   scrollDirection: Axis.vertical,
-      //   child: Card(
-      //                   child: ListTile(
-      //                     leading: Container(
-      //                       width: 5,
-      //                       height: 50,
-      //                       decoration: BoxDecoration(
-      //                         color: Colors.green,
-      //                       ),
-      //                     ),
-      //                     title: Text("data.dateTime.toString()"),
-      //                     subtitle: Text('Task:'),
-      //                     trailing: TextButton(
-      //                       onPressed: () {
-      //                         if (context.mounted) {
-      //                           Navigator.push(
-      //                             context,
-      //                             MaterialPageRoute(
-      //                               builder: (context) =>
-      //                                   HistoryDetail(
-      //                                     // bookingId: "bookingId",
-      //                                     // boxId: boxId,
-      //                                     // cabinetName: cabinetName,
-      //                                     // // boxName: boxName,
-      //                                     // status: status,
-      //                                     // validDate: validDate,
-      //                                     // onCancel: () {
-      //                                     //   setState(() {});
-      //                                     // },
-      //                                   ),
-      //                             ),
-      //                           );
-      //                         }
-      //                       },
-      //                       child: const Text("Chi tiết"),
-      //                     ),
-      //                   ),
-      //                 ),
-      //   ),
     );
   }
 

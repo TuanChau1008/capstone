@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:capstone/checkMailBox/check_mailbox.dart';
 import  'package:capstone/utils/constants/color_constant.dart';
 import 'package:capstone/utils/constants/image_constant.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -73,8 +74,14 @@ class _HomeScreen extends State<HomeScreen> {
                   onTap: () {
                     String BookingCodeId = generateRandomCode(18);
                     String id = BookingCodeId;
+                    DatabaseReference bookingLog = FirebaseDatabase.instance.ref().child('BookingCode');
+                    bookingLog.remove();
                     DatabaseReference bookingOrder = FirebaseDatabase.instance.ref().child('BookingCode').child('-N'+id);
-                    DateTime now = DateTime.now().add(const Duration(minutes: 10));
+                    DatabaseReference log = FirebaseDatabase.instance.ref().child('MailBoxLog').child('Log');
+                    DatabaseReference booking1 = FirebaseDatabase.instance.ref().child('BookingOrder').child('-Ni8Zv8DYrsm3bMZ7eB2');
+                    DateTime end = DateTime.now().add(const Duration(minutes: 10));
+                    DateTime now = DateTime.now();
+                    String endTime = end.toString().substring(0,16);
                     String time = now.toString().substring(0,16);
                     var rng = new Random();
                     var code = rng.nextInt(900000) + 100000;
@@ -82,12 +89,35 @@ class _HomeScreen extends State<HomeScreen> {
                     Map<String, String> booking =
                     {
                       "bcode": bcode,
-                      "bookingId": "-N$id",
-                      "id": "-Nh16BxBtkcOUl6_uoHG",
+                      "bookingId": "-Ni8Zv8DYrsm3bMZ7eB2",
+                      "id": "-N$id",
                       "status": "1",
-                      "validDate": time
+                      "validDate": endTime
                     };
+                    Map<String, dynamic> mailbox =
+                    {
+                      "BookingId": "-N$id",
+                      "BoxName": "MailBox",
+                      "CreateDate": time,
+                      "EndDate": endTime,
+                      "MasterCode": "100800",
+                      "Status": "3",
+                      "UnlockCode": bcode
+                    };
+                    Map<String, dynamic> bookingOrderLog =
+                    {
+                      "boxId": "-Nf5IIoTMOQ1XuN8qf_7",
+                      "businessId": "-Nf5H_45gvDvWJlfVSHi",
+                      "createDate": time,
+                      "deviceId": "87bb999684cccb39",
+                      "id": "-Ni8Zv8DYrsm3bMZ7eB2",
+                      "status": 3,
+                      "unlockCode": "100800",
+                      "validDate": endTime
+                    };
+                    booking1.update(bookingOrderLog);
                     bookingOrder.update(booking);
+                    log.update(mailbox);
                      if (context.mounted) {
                       createNewBookingCode(context, "1", "Nh16BmWda5wbyrO3MQG", bcode);
                      }
@@ -138,6 +168,13 @@ class _HomeScreen extends State<HomeScreen> {
                 child: InkWell(
                   onTap: () {
                     if (context.mounted) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const CheckMailBox()
+                        ),
+                      );
                     }
                   },
                   child: Column(

@@ -1,4 +1,9 @@
+
+import 'package:capstone/services/api.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+
 
 import '../utils/constants/color_constant.dart';
 import '../utils/constants/image_constant.dart';
@@ -13,7 +18,13 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   bool _showPass = false;
   bool _isCommit = false;
-
+  TextEditingController _fullname = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  TextEditingController _repassword = TextEditingController();
+  TextEditingController _phone = TextEditingController();
+  bool areStringsEqual = false;
+  String errorText = '';
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -64,7 +75,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           style: TextStyle(
                               fontSize: size.width * 0.04, color: Colors.black),
                           cursorColor: ColorConstant.primaryColor,
-                          controller: null,
+                          controller: _fullname,
                           decoration: InputDecoration(
                             hintText: "Họ và tên",
                             prefixIcon: SizedBox(
@@ -104,7 +115,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           style: TextStyle(
                               fontSize: size.width * 0.04, color: Colors.black),
                           cursorColor: ColorConstant.primaryColor,
-                          controller: null,
+                          controller: _email,
                           decoration: InputDecoration(
                             hintText: "Email",
                             prefixIcon: SizedBox(
@@ -145,7 +156,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           style: TextStyle(
                               fontSize: size.width * 0.04, color: Colors.black),
                           cursorColor: ColorConstant.primaryColor,
-                          controller: null,
+                          controller: _phone,
                           decoration: InputDecoration(
                             hintText: "Số điện thoại",
                             prefixIcon: SizedBox(
@@ -191,7 +202,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                               obscureText: !_showPass,
                               cursorColor: ColorConstant.primaryColor,
-                              controller: null,
+                              controller: _password,
                               decoration: InputDecoration(
                                 hintText: "Mật Khẩu",
                                 prefixIcon: SizedBox(
@@ -251,6 +262,14 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                             child: TextField(
                               onChanged: (value) {
+                                areStringsEqual = _repassword.text == _password.text;
+                                setState(() {
+                                  if (areStringsEqual = _repassword.text == _password.text) {
+                                    errorText = '';
+                                  } else {
+                                    errorText = 'Hai mật khẩu không trùng nhau';
+                                  }
+                                });
                               },
                               style: TextStyle(
                                 fontSize: size.width * 0.04,
@@ -258,7 +277,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                               obscureText: !_showPass,
                               cursorColor: ColorConstant.primaryColor,
-                              controller: null,
+                              controller: _repassword,
                               decoration: InputDecoration(
                                 hintText: "Nhập lại mật khẩu",
                                 prefixIcon: SizedBox(
@@ -276,7 +295,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     width: 1,
-                                    color: ColorConstant.primaryColor,
+                                      color: ColorConstant.primaryColor,
                                   ),
                                 ),
                               ),
@@ -341,7 +360,61 @@ class _SignupScreenState extends State<SignupScreen> {
                         width: double.infinity,
                         height: size.height * 0.055,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            setState(() {
+                              areStringsEqual = _repassword.text == _password.text;
+                            });
+                            if(areStringsEqual){
+                              if(_fullname.text.isNotEmpty &&
+                                  _phone.text.isNotEmpty &&
+                                  _email.text.isNotEmpty &&
+                                  _password.text.isNotEmpty &&
+                                  _repassword.text.isNotEmpty){
+                                //Api.register(_fullname.text, _password.text, _phone.text, _email.text);
+                                if(await Api.register(_fullname.text, _password.text, _phone.text, _email.text)){
+                                  registerUser(_email.text, _password.text, _fullname.text.toString().trim());
+                                  if (context.mounted) {
+                                    Navigator.of(context).pop();
+                                  }
+                            }
+                              }else{
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('Cảnh báo'),
+                                      content: Text('Vui lòng nhập đủ thông tin.'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text('Đóng'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            }else{
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text('Cảnh báo'),
+                                    content: Text('Vui lòng nhập hai mật khẩu trùng nhau'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text('Đóng'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorConstant.primaryColor,
@@ -444,6 +517,24 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       _showPass = !_showPass;
     });
+  }
+  Future<void> registerUser(String email, String password, String username) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // Lưu thông tin người dùng vào Realtime Database
+      DatabaseReference userRef = FirebaseDatabase.instance.reference().child('users');
+      userRef.child(userCredential.user!.uid).set({
+        'email': email,
+        'username': username,
+      });
+    } catch (e) {
+      print('Đăng ký thất bại: $e');
+      // Xử lý lỗi đăng ký
+    }
   }
 }
 

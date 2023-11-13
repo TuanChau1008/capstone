@@ -1,4 +1,5 @@
 import 'package:capstone/dialogs/logout_dialog.dart';
+import 'package:capstone/information_screen/change_password.dart';
 import 'package:capstone/login_screen/login_screen.dart';
 import 'package:capstone/utils/constants/color_constant.dart';
 import 'package:capstone/utils/constants/image_constant.dart';
@@ -110,6 +111,8 @@ class _InfoState extends State<Info> {
               textColor: Colors.black,
               enIcon: true,
               onPress: () {
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => const Change_Password()));
               },
             ),
             const Divider(),

@@ -1,9 +1,10 @@
 
 import 'package:capstone/history_screen/task_history.dart';
 import 'package:capstone/home_screen/homescreen.dart';
+import 'package:capstone/nfc_scanner/qr_scanner.dart';
 import 'package:capstone/notification_screen/notification_screen.dart';
 import 'package:capstone/information_screen/profile.dart';
-import 'package:capstone/qr_scanner/qr_scanner.dart';
+
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -36,11 +37,11 @@ class _BottomBarNavigatorState extends State<BottomBarNavigator> {
         return const HomeScreen();
       case 1:
         return const History() ;
-      // case 2:
-      //   // return const QRscanner();
-      case 2:
-        return const Notificaiton();
+       case 2:
+         return const QRscanner();
       case 3:
+        return const Notificaiton();
+      case 4:
         return const Info();
 
 
@@ -76,12 +77,12 @@ class _BottomBarNavigatorState extends State<BottomBarNavigator> {
             ),
             label: 'Lịch sử',
           ),
-          // BottomNavigationBarItem(
-          //   icon: ImageIcon(
-          //     AssetImage(ImageConstant.imgQRScanner),
-          //   ),
-          //   label: 'Quét QR',
-          // ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage(ImageConstant.icNFC),
+            ),
+            label: 'Quét NFC',
+          ),
           BottomNavigationBarItem(
             icon: ImageIcon(
               AssetImage(ImageConstant.icNotification),

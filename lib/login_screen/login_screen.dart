@@ -1,6 +1,8 @@
 
 import 'package:capstone/bottom_bar_navigator/bottom_bar_navigator.dart';
+import 'package:capstone/services/api.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../utils/constants/color_constant.dart';
 import '../utils/constants/image_constant.dart';
@@ -14,7 +16,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _showPass = false;
-
+  TextEditingController _password = TextEditingController();
+  TextEditingController _phone = TextEditingController();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -56,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(
                       fontSize: size.width * 0.04, color: Colors.black),
                   cursorColor: ColorConstant.primaryColor,
-                  controller: null,
+                  controller: _phone,
                   onChanged: (value) {},
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -103,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: !_showPass,
                       onChanged: (value) {},
                       cursorColor: ColorConstant.primaryColor,
-                      controller: null,
+                      controller: _password,
                       decoration: InputDecoration(
                         errorText: null,
                         hintText: "Mật Khẩu",
@@ -187,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   //  Navigator.pushNamed(context, '/homeScreen');
                   //},
                   onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => BottomBarNavigator(selectedIndex: 0, isBottomNav: true),));
+                        loginUser(_phone.text, _password.text);
                         },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ColorConstant.primaryColor,
@@ -344,5 +347,39 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _showPass = !_showPass;
     });
+  }
+  Future<void> loginUser(String email, String password) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      print('Đăng nhập thành công');
+      // Thực hiện hành động sau khi đăng nhập thành công
+      Navigator.push(context,
+          MaterialPageRoute(
+            builder: (context) =>
+                BottomBarNavigator(selectedIndex: 0, isBottomNav: true),));
+    } catch (e) {
+      print('Đăng nhập thất bại: $e');
+      // Xử lý lỗi đăng nhập
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Cảnh báo'),
+            content: Text('Sai thông tin đăng nhập'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Đóng'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

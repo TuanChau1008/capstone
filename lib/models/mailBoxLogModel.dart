@@ -1,24 +1,23 @@
 import 'package:firebase_database/firebase_database.dart';
 
-class History {
-  late String id;
-  late String boxName;
-  late String createDate;
-  late String endDate;
-  late int status;
-  late int bCode;
-  late int masterCode;
+class MailBoxLogModel {
+  String? id;
+  String? boxName;
+  String? createDate;
+  String? endDate;
+  int? status;
+  int? bCode;
+  int? masterCode;
 
-
-  History({
-    required this.id,
-    required this.boxName,
-    required this.createDate,
-    required this.endDate,
-    required this.status,
+  MailBoxLogModel({
+    this.id,
+    this.boxName,
+    this.createDate,
+    this.endDate,
+    this.status,
   });
 
-  History.fromSnapshot(DataSnapshot snapshot){
+  MailBoxLogModel.fromSnapshot(DataSnapshot snapshot){
     Map<dynamic, dynamic> myData= Map<dynamic, dynamic>.from(snapshot.value as
     Map);
     id = snapshot.key.toString();

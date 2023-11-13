@@ -11,4 +11,5 @@ class ImageConstant {
   static String imgViewHistory = 'assets/images/img_view_history.png';
   static String imgQRScanner = 'assets/images/qr-code-scan.png';
   static String icNotification = 'assets/images/ic_notification.png';
+  static String icNFC = 'assets/images/NFC.png';
 }
