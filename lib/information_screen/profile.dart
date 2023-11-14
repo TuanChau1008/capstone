@@ -42,22 +42,6 @@ class _InfoState extends State<Info> {
                     child: Image(image: AssetImage(icProfile)),
                   ),
                 ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Container(
-                    width: 35,
-                    height: 35,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: ColorConstant.primaryColor),
-                    child: const Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ),
-                ),
               ],
             ),
             const SizedBox(height: 10),
@@ -69,32 +53,7 @@ class _InfoState extends State<Info> {
               "0972093636",
               style: Theme.of(context).textTheme.headlineSmall,
             ),
-            Text(
-              "CBD Đồng Văn Cống",
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: 200,
-              child: ElevatedButton(
-                onPressed: () {
-                  // pushNewScreenWithRouteSettings(
-                  //   context,
-                  //   screen: const EditInfo(),
-                  //   settings: const RouteSettings(name: editInfoRoute),
-                  // );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: ColorConstant.primaryColor,
-                  side: BorderSide.none,
-                  shape: const StadiumBorder(),
-                ),
-                child: const Text(
-                  "Chỉnh sửa thông tin",
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-            ),
             // const SizedBox(height: 30),
             const Divider(),
             //MENU

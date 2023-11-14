@@ -4,6 +4,7 @@ import 'package:capstone/home_screen/homescreen.dart';
 import 'package:capstone/nfc_scanner/qr_scanner.dart';
 import 'package:capstone/notification_screen/notification_screen.dart';
 import 'package:capstone/information_screen/profile.dart';
+import 'package:capstone/qr_scanner/qr_scanner.dart';
 
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
@@ -79,9 +80,9 @@ class _BottomBarNavigatorState extends State<BottomBarNavigator> {
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage(ImageConstant.icNFC),
+              AssetImage(ImageConstant.imgQRScanner),
             ),
-            label: 'Quét NFC',
+            label: 'Quét QR',
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
