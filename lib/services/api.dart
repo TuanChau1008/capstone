@@ -68,6 +68,22 @@ class Api {
     return history;
   }
 
+  static Future<List<dynamic>> fetchNotify() async {
+    final snapshot = await FirebaseDatabase.instance
+        .ref()
+        .child("Notification")
+        .child("-Nfq5eFxO6t4najckyZe")
+        .child("message")
+        .orderByKey()
+        .get();
+
+    List<dynamic> notify = [];
+
+    Map<dynamic, dynamic> values = snapshot.value as Map;
+    notify = values.values.toList();
+    return notify;
+  }
+
   static Future<String> fetchMasterCode() async {
     final snapshot = await FirebaseDatabase.instance
         .ref()
