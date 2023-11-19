@@ -7,15 +7,19 @@ import 'package:capstone/nfc_scanner/qr_scanner.dart';
 import 'package:capstone/notification_screen/notification_screen.dart';
 import 'package:capstone/information_screen/profile.dart';
 import 'package:capstone/qr_scanner/qr_scanner.dart';
+import 'package:capstone/services/api.dart';
 import 'package:capstone/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'login_screen/register_screen.dart';
-
+final navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
+    await FirebaseMessaging.instance.setAutoInitEnabled(true);
+    await Api.initNotification();
   runApp(const MyApp());
 }
 

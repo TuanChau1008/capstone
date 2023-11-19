@@ -1,12 +1,58 @@
 import 'dart:convert';
 
 import 'package:capstone/models/historyModel.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+import '../main.dart';
 
 
 
 
 class Api {
+  static final _firebaseMessaging = FirebaseMessaging.instance;
+
+  static Future<void> initNotification() async {
+    await _firebaseMessaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    await Firebase.initializeApp();
+    final fCMToken = await _firebaseMessaging.getToken();
+
+    print('Token123: $fCMToken');
+
+    initPushNotification();
+  }
+
+  static void handleMessage(RemoteMessage? message) async{
+    if(message == null) return;
+
+    navigatorKey.currentState?.pushNamed(
+      '/notification_screen/notificaiton_screen'
+    );
+  }
+
+  static Future initPushNotification() async{
+    FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
+
+    FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      final notification = message.notification;
+      if (notification != null) {
+        print('Notification Title: ${notification.title}');
+        print('Notification Body: ${notification.body}');
+      }
+    });
+    //FirebaseMessaging.onBackgroundMessage(handleMessage as BackgroundMessageHandler);
+  }
 
   static Future<List<dynamic>> fetchHistory() async {
     final snapshot = await FirebaseDatabase.instance
@@ -117,4 +163,6 @@ class Api {
     print(status);
     return status;
   }
+
+
 }
