@@ -49,6 +49,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   platform_device_id: ^1.0.1
   firebase_core: ^2.20.0
+  firebase_storage: ^11.4.0
 
 dev_dependencies:
   flutter_test:
