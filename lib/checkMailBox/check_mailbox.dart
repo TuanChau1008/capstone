@@ -220,7 +220,7 @@ class _CheckMailBoxState extends State<CheckMailBox> {
                               ),
                               onPressed: () {
                                 String id = bookingId;
-                                DatabaseReference bookingOrder = FirebaseDatabase.instance.ref().child('BookingCode').child("-N$id");
+                                DatabaseReference bookingOrder = FirebaseDatabase.instance.ref().child('BookingCode').child("$id");
                                 DateTime now = DateTime.now().add(const Duration(minutes: 10));
                                 String time = now.toString().substring(0,16);
                                 var rng = new Random();
@@ -230,7 +230,7 @@ class _CheckMailBoxState extends State<CheckMailBox> {
                                 {
                                   "bcode": bcode,
                                   "bookingId": "-Ni8Zv8DYrsm3bMZ7eB2",
-                                  "id": "-N$id",
+                                  "id": "$id",
                                   "status": "1",
                                   "validDate": time
                                 };

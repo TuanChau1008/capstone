@@ -32,6 +32,17 @@ class Api {
 
     return snapshot.value.toString();
   }
+
+  static Future<String> fetchStatus() async {
+    final snapshot = await FirebaseDatabase.instance
+        .ref()
+        .child("QRCode")
+        .child("0849953007")
+        .child("status")
+        .get();
+
+    return snapshot.value.toString();
+  }
   static Future<List<dynamic>> fetchMailBoxLog() async {
     final snapshot = await FirebaseDatabase.instance
         .ref()
