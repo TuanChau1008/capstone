@@ -1,9 +1,10 @@
-import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
-import 'package:capstone/models/historyModel.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import '../main.dart';
 
@@ -13,6 +14,23 @@ import '../main.dart';
 class Api {
   static final _firebaseMessaging = FirebaseMessaging.instance;
 
+  static final firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
+
+  static Future<void> uploadImage(Uint8List imageBytes) async {
+    try {
+      String fileName = 'UnlockCode.png';
+      firebase_storage.Reference ref =
+      storage.ref().child(fileName);
+      await ref.putData(imageBytes);
+
+      // Lấy URL của hình ảnh đã tải lên
+      String downloadURL = await ref.getDownloadURL();
+      print('Image uploaded. Download URL: $downloadURL');
+    } catch (e) {
+      print('Error uploading image: $e');
+    }
+  }
   static Future<void> initNotification() async {
     await _firebaseMessaging.requestPermission(
       alert: true,

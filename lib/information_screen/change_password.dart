@@ -69,7 +69,7 @@ class _Change_PasswordState extends State<Change_Password> {
                           context: context,
                           title: "Đổi master code",
                           content: "Đổi master code thành công",
-                          optionBuilder: () => {"OK": true},
+                          optionBuilder: () => {"OK": true}, data: '',
                           );
                         }
                       },

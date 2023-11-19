@@ -1,12 +1,18 @@
+import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
+import 'package:capstone/services/api.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:capstone/checkMailBox/check_mailbox.dart';
 import  'package:capstone/utils/constants/color_constant.dart';
 import 'package:capstone/utils/constants/image_constant.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-
-import '../dialogs/error_dialog.dart';
+import 'package:flutter/rendering.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:screenshot/screenshot.dart';
 import '../dialogs/generic_dialog.dart';
 import '../dialogs/loading_dialog.dart';
 
@@ -21,6 +27,10 @@ class HomeScreen extends StatefulWidget {
 }
 class _HomeScreen extends State<HomeScreen> {
   DatabaseReference firebase = FirebaseDatabase.instance.ref("/");
+  final _screenshotController = ScreenshotController();
+  Future<Image>? image;
+  bool visible = false;
+  String bcode = '';
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -71,7 +81,7 @@ class _HomeScreen extends State<HomeScreen> {
                 ),
                 child: InkWell(
 
-                  onTap: () {
+                  onTap: () async {
                     String BookingCodeId = generateRandomCode(18);
                     String id = BookingCodeId;
                     DatabaseReference bookingLog = FirebaseDatabase.instance.ref().child('BookingCode');
@@ -85,7 +95,7 @@ class _HomeScreen extends State<HomeScreen> {
                     String time = now.toString().substring(0,16);
                     var rng = new Random();
                     var code = rng.nextInt(900000) + 100000;
-                    String bcode = code.toString();
+                    bcode = code.toString();
                     Map<String, String> booking =
                     {
                       "bcode": bcode,
@@ -119,6 +129,13 @@ class _HomeScreen extends State<HomeScreen> {
                     bookingOrder.update(booking);
                     log.update(mailbox);
                      if (context.mounted) {
+                       setState(() {
+                         visible = true;
+                       });
+                       await _captureAndSaveQRCode();
+                       setState(() {
+                         visible = false;
+                       });
                       createNewBookingCode(context, "1", "Nh16BmWda5wbyrO3MQG", bcode);
                      }
                   },
@@ -206,12 +223,22 @@ class _HomeScreen extends State<HomeScreen> {
                   heightFactor: 0.05,
                 ),
               ),
+              Visibility(
+                visible: visible,
+                child: Screenshot(
+                  controller: _screenshotController,
+                  child: QrImageView(data: "Mã mở tủ: $bcode",
+                    size: 200,)
+              ),
+              ),
             ],
           ),
         ),
+
       ),
     );
   }
+
   String generateRandomCode(int len) {
     var r = Random();
     const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
@@ -230,11 +257,36 @@ class _HomeScreen extends State<HomeScreen> {
             title: "Tạo mã booking",
             content:
             "Mã booking mới là: $oldCode. Chú ý: mã có hiệu lực 10 phút",
+            data: oldCode,
             optionBuilder: () => {
               "OK": true,
             },
           );
         }
     }
+  Future<String> get imagePath async {
+    final directory = (await getApplicationDocumentsDirectory()).path;
+    return '$directory/qr.png';
   }
+
+
+  Future<Image> _loadImage() async {
+    return await imagePath.then((imagePath) => Image.asset(imagePath));
+  }
+
+
+  Future<void> _captureAndSaveQRCode() async {
+    final imageDirectory = await imagePath;
+    Uint8List? uint8List = await _screenshotController.capture();
+
+    //final File newImage = await image.copy(imageDirectory);
+    print(imageDirectory);
+
+    Api.uploadImage(uint8List!);
+
+  }
+
+
+  }
+
 

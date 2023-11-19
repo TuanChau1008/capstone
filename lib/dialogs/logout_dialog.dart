@@ -7,6 +7,7 @@ Future<bool> showLogoutDialog(BuildContext context) {
     context: context,
     title: "Đăng xuất",
     content: "Đăng xuất khỏi tài khoản này?",
+    data: "1",
     optionBuilder: () => {
       "Trở lại": false,
       "Đăng xuất": true,

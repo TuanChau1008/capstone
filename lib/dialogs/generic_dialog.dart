@@ -7,8 +7,10 @@ Future<T?> showGenericDialog<T>({
   required String title,
   required String content,
   required DialogOptionbuilder optionBuilder,
+  required String data,
 }) {
   final options = optionBuilder();
+
   return showDialog<T>(
     context: context,
     builder: (context) {
@@ -32,3 +34,4 @@ Future<T?> showGenericDialog<T>({
     },
   );
 }
+

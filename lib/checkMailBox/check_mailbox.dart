@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:http/http.dart' as http;
-import '../dialogs/error_dialog.dart';
 import '../dialogs/generic_dialog.dart';
 import '../dialogs/loading_dialog.dart';
 
@@ -65,57 +64,5 @@ class _CheckMailBoxState extends State<CheckMailBox> {
   Future<String> _getImageUrl(String imagePath) async {
     final ref = firebase_storage.FirebaseStorage.instance.ref(imagePath);
     return await ref.getDownloadURL();
-  }
-
-
-
-  String generateRandomCode(int len) {
-    var r = Random();
-    const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-    return List.generate(len, (index) => _chars[r.nextInt(_chars.length)]).join();
-  }
-  Future<void> createNewBookingCode(
-      BuildContext mainContext,
-      String status,
-      String bookingId,
-      String oldCode,
-      ) async {
-    closeLoadingDialog();
-    if (context.mounted) {
-      await showGenericDialog(
-        context: context,
-        title: "Tạo mã booking",
-        content:
-        "Mã booking mới là: $oldCode. Chú ý: mã có hiệu lực 10 phút",
-        optionBuilder: () => {
-          "OK": true,
-        },
-      );
-    }
-  }
-
-  Future<void> cancelBooking(
-      BuildContext mainContext,
-      String status,
-      ) async {
-    if (status.contains("Đang có hàng")) {
-      if (context.mounted) {
-        return showErrorDialog(
-            context, "Bạn không thể hủy booking đang có hàng trong tủ");
-      }
-    } else if (status.contains("Đang tiến hành")) {
-
-        if (context.mounted) {
-          Navigator.pop(mainContext);
-
-          await showGenericDialog(
-            context: context,
-            title: "Hủy booking",
-            content: "Booking được hủy thành công",
-            optionBuilder: () => {"OK": true},
-          );
-        }
-
-    }
   }
 }
