@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../main.dart';
 
@@ -16,7 +17,13 @@ class Api {
 
   static final firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
-
+  static const _androidChannel = AndroidNotificationChannel(
+      'high_importance_channel',
+      'high_importance_channel',
+      description: 'This channel is used for important notification',
+      importance: Importance.defaultImportance,
+  );
+  static final _localNotifications = FlutterLocalNotificationsPlugin();
   static Future<void> uploadImage(Uint8List imageBytes) async {
     try {
       String fileName = 'UnlockCode.png';
@@ -45,8 +52,15 @@ class Api {
     final fCMToken = await _firebaseMessaging.getToken();
 
     print('Token123: $fCMToken');
-
+    DatabaseReference token = FirebaseDatabase.instance.ref().child('Notification').child('-Nfq5eFxO6t4najckyZe');
+    Map<String, dynamic?> data =
+    {
+      "token": fCMToken,
+    };
+    token.update(data);
     initPushNotification();
+
+    //-Nfq5eFxO6t4najckyZe
   }
 
   static void handleMessage(RemoteMessage? message) async{
@@ -59,17 +73,36 @@ class Api {
 
   static Future initPushNotification() async{
     FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
-
-    FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
+    FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
+    FirebaseMessaging.onMessageOpenedApp.listen(handleBackgroundMessage);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
+     // print('Got a message whilst in the foreground!');
       final notification = message.notification;
       if (notification != null) {
-        print('Notification Title: ${notification.title}');
-        print('Notification Body: ${notification.body}');
+        handleBackgroundMessage(message);
+        _localNotifications.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+              _androidChannel.id,
+                _androidChannel.name,
+                channelDescription: _androidChannel.description,
+                icon: '@mipmap/ic_launcher'
+              )
+            )
+        );
+        //print('Notification Title: ${notification.title}');
+       // print('Notification Body: ${notification.body}');
       }
     });
-    //FirebaseMessaging.onBackgroundMessage(handleMessage as BackgroundMessageHandler);
+  }
+
+  static Future<void> handleBackgroundMessage(RemoteMessage message) async{
+    print('Notification Title: ${message.notification?.title}');
+    print('Notification Body: ${message.notification?.body}');
+    print('payload: ${message.data}');
   }
 
   static Future<List<dynamic>> fetchHistory() async {
