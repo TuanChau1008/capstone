@@ -5,6 +5,8 @@ import 'package:capstone/utils/constants/color_constant.dart';
 import 'package:capstone/utils/constants/image_constant.dart';
 import 'package:flutter/material.dart';
 
+import '../services/api.dart';
+
 class Info extends StatefulWidget {
   const Info({super.key});
 
@@ -25,7 +27,7 @@ class _InfoState extends State<Info> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstant.primaryColor ,
+        backgroundColor: ColorConstant.primaryColor,
         automaticallyImplyLeading: false,
         title: Text("Thông tin cá nhân"),
       ),
@@ -45,14 +47,35 @@ class _InfoState extends State<Info> {
               ],
             ),
             const SizedBox(height: 10),
-            Text(
-              "Chau Tuan",
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            Text(
-              "0972093636",
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+            FutureBuilder(
+                future: Api.fetchInfo(),
+                builder: (context, snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    case ConnectionState.done:
+                      String name =
+                      snapshot.data![2].toString();
+                      String phone =
+                      snapshot.data![1].toString();
+                      return Column(children: [
+                        Text(
+                          name,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        Text(
+                          phone,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                      ]);
+                    default:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                  }
+                }),
             const SizedBox(height: 20),
             // const SizedBox(height: 30),
             const Divider(),
@@ -71,7 +94,9 @@ class _InfoState extends State<Info> {
               enIcon: true,
               onPress: () {
                 Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (context) => const Change_Password()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Change_Password()));
               },
             ),
             const Divider(),
@@ -82,11 +107,10 @@ class _InfoState extends State<Info> {
               enIcon: false,
               onPress: () async {
                 final shouldLogout = await showLogoutDialog(context);
-                if(shouldLogout) {
-                  Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                if (shouldLogout) {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
                 }
-
               },
             ),
           ],
@@ -131,18 +155,18 @@ class ProfileMenuWidget extends StatelessWidget {
         ),
         trailing: enIcon
             ? Container(
-          width: 30,
-          height: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
-            color: Colors.grey.withOpacity(0.3),
-          ),
-          child: const Icon(
-            Icons.arrow_forward_ios,
-            size: 18.0,
-            color: Colors.white,
-          ),
-        )
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: Colors.grey.withOpacity(0.3),
+                ),
+                child: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 18.0,
+                  color: Colors.white,
+                ),
+              )
             : null);
   }
 }
