@@ -18,7 +18,7 @@ class CheckMailBox extends StatefulWidget {
 
 class _CheckMailBoxState extends State<CheckMailBox> {
   final String imageUrl =
-      'Box.jpg';
+      'Box';
 
   @override
   Widget build(BuildContext context) {
